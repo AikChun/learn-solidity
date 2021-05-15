@@ -27,4 +27,16 @@ describe('Inbox', () => {
     const message = await inbox.methods.message().call();
     assert.strictEqual(message, INITIAL_MESSAGE);
   });
+
+  it('can change the message', async () => {
+    const newMessage = 'Bye there';
+
+    // returns transaction hash below
+    await inbox.methods
+      .setMessage(newMessage)
+      .send({ from: fetchedAccounts[0] });
+
+    const message = await inbox.methods.message().call();
+    assert.strictEqual(message, newMessage);
+  });
 });
