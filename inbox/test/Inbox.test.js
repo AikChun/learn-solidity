@@ -5,6 +5,9 @@ const Web3 = require('web3');
 const web3 = new Web3(ganache.provider());
 const { interface, bytecode } = require('../compile');
 
+const infura_api_endpoint =
+  'https://rinkeby.infura.io/v3/685f851de0d84f6989dc57e8239e5dd6';
+
 let fetchedAccounts;
 let inbox;
 const INITIAL_MESSAGE = 'Hi there';
