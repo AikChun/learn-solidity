@@ -13,13 +13,16 @@ contract Lottery {
         players.push(msg.sender);
     }
 
-    function random() public view returns (uint256) {
+    function random() private view returns (uint256) {
         return uint256(keccak256(block.difficulty, now, players));
     }
 
     function pickWinner() public {
+        require(msg.sender == manager);
+
         uint256 index = random() % players.length;
         address winnerAddress = players[index];
         winnerAddress.transfer(this.balance);
+        players = new address[](1);
     }
 }
