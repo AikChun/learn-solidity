@@ -21,7 +21,7 @@ contract Lottery {
         uint256 index = random() % players.length;
         address winnerAddress = players[index];
         winnerAddress.transfer(this.balance);
-        players = new address[](1);
+        players = new address[](0);
     }
 
     modifier restricted() {
