@@ -5,6 +5,7 @@ const web3 = new Web3(ganache.provider());
 
 const compiledFactory = require('../ethereum/build/CampaignFactory.json');
 const compiledCampaign = require('../ethereum/build/Campaign.json');
+const { send } = require('process');
 
 let accounts;
 let factory;
@@ -62,11 +63,26 @@ describe('Campaigns', () => {
 
   it('allow manager to invoke createRequest', async () => {
     await campaign.methods
-      .createRequest('Buy batteries', '100', accounts[2])
+      .contribute()
+      .send({ from: accounts[0], value: web3.utils.toWei('10', 'ether') });
+
+    await campaign.methods
+      .createRequest(
+        'Buy batteries',
+        web3.utils.toWei('5', 'ether'),
+        accounts[2]
+      )
       .send({ from: accounts[0], gas: '1000000' });
     const request = await campaign.methods.requests(0).call();
     assert.strictEqual(request.description, 'Buy batteries');
     assert.strictEqual(request.recipient, accounts[2]);
-    assert.strictEqual(request.value, '100');
+    assert.strictEqual(request.value, web3.utils.toWei('5', 'ether'));
+    await campaign.methods.approveRequest(0).send({ from: accounts[0] });
+    await campaign.methods.finalizeRequest(0).send({ from: accounts[0] });
+
+    let balance = await web3.eth.getBalance(accounts[2]);
+
+    balance = parseFloat(web3.utils.fromWei(balance, 'ether'));
+    assert(balance > 104);
   });
 });
