@@ -59,4 +59,14 @@ describe('Campaigns', () => {
       assert(err);
     }
   });
+
+  it('allow manager to invoke createRequest', async () => {
+    await campaign.methods
+      .createRequest('Buy batteries', '100', accounts[2])
+      .send({ from: accounts[0], gas: '1000000' });
+    const request = await campaign.methods.requests(0).call();
+    assert.strictEqual(request.description, 'Buy batteries');
+    assert.strictEqual(request.recipient, accounts[2]);
+    assert.strictEqual(request.value, '100');
+  });
 });
