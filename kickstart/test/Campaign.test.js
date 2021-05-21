@@ -35,8 +35,28 @@ describe('Campaigns', () => {
     assert.ok(factory.options.address);
     assert.ok(campaign.options.address);
   });
+
   it('marks caller has the manager', async () => {
     const manager = await campaign.methods.manager().call();
     assert.strictEqual(manager, accounts[0]);
+  });
+
+  it('allows people to contribute money and marks them as approvers', async () => {
+    await campaign.methods
+      .contribute()
+      .send({ from: accounts[1], value: '101' });
+    const isContributor = await campaign.methods.approvers(accounts[1]).call();
+    assert(isContributor);
+  });
+
+  it('requires a minimum contribution', async () => {
+    try {
+      await campaign.methods
+        .contribute()
+        .send({ from: accounts[1], value: '100' });
+      assert(false);
+    } catch (err) {
+      assert(err);
+    }
   });
 });
