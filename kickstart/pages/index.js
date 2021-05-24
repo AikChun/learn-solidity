@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Button } from 'semantic-ui-react';
+import Layout from '../components/Layout';
 
 import factory from '../ethereum/factory';
 
@@ -15,15 +16,17 @@ function Index({ campaigns = [] }) {
   };
 
   return (
-    <div>
-      <link
-        rel="stylesheet"
-        href="//cdn.jsdelivr.net/npm/semantic-ui@2.0.3/dist/semantic.min.css"
-      />
-      <h3>Open Campaigns</h3>
-      {renderCampaigns()}
-      <Button content="Create Campaign" icon="add" primary />
-    </div>
+    <Layout>
+      <div>
+        <link
+          rel="stylesheet"
+          href="//cdn.jsdelivr.net/npm/semantic-ui@2.0.3/dist/semantic.min.css"
+        />
+        <h3>Open Campaigns</h3>
+        {renderCampaigns()}
+        <Button content="Create Campaign" icon="add" primary />
+      </div>
+    </Layout>
   );
 }
 
