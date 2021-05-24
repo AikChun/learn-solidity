@@ -1,0 +1,3 @@
+export const INFURA_API_ENDPOINT =
+  'https://rinkeby.infura.io/v3/685f851de0d84f6989dc57e8239e5dd6';
+export const FACTORY_ADDRESS = '0x4588D5353dCB1401B8156CaA52B00B8b19551D8f';
