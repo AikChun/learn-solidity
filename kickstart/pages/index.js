@@ -23,8 +23,8 @@ function Index({ campaigns = [] }) {
           href="//cdn.jsdelivr.net/npm/semantic-ui@2.0.3/dist/semantic.min.css"
         />
         <h3>Open Campaigns</h3>
+        <Button floated="right" content="Create Campaign" icon="add" primary />
         {renderCampaigns()}
-        <Button content="Create Campaign" icon="add" primary />
       </div>
     </Layout>
   );
