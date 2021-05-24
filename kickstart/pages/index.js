@@ -1,16 +1,28 @@
 import React from 'react';
+import { Card, Button } from 'semantic-ui-react';
 
 import factory from '../ethereum/factory';
 
 function Index({ campaigns = [] }) {
+  const renderCampaigns = () => {
+    const items = campaigns.map((campaign) => ({
+      header: campaign,
+      description: <a>View Campaign</a>,
+      fluid: true,
+    }));
+
+    return <Card.Group items={items} />;
+  };
+
   return (
     <div>
-      <h1>This is the campaign list!!!</h1>
-      <ul>
-        {campaigns.map((campaign) => (
-          <li key={campaign}>{campaign}</li>
-        ))}
-      </ul>
+      <link
+        rel="stylesheet"
+        href="//cdn.jsdelivr.net/npm/semantic-ui@2.0.3/dist/semantic.min.css"
+      />
+      <h3>Open Campaigns</h3>
+      {renderCampaigns()}
+      <Button content="Create Campaign" icon="add" primary />
     </div>
   );
 }
