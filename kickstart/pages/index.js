@@ -42,7 +42,6 @@ function Index({ campaigns = [] }) {
 
 Index.getInitialProps = async () => {
   const campaigns = await factory.methods.getDeployedCampaigns().call();
-  console.log('campaigns', campaigns);
 
   return { campaigns };
 };
