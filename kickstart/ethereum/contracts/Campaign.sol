@@ -80,13 +80,21 @@ contract Campaign {
         request.complete = true;
     }
 
-    function getSummary() public view returns (
-        uint, uint, uint, uint, address
-    ) {
+    function getSummary()
+        public
+        view
+        returns (
+            uint256,
+            uint256,
+            uint256,
+            uint256,
+            address
+        )
+    {
         return (value, this.balance, requests.length, approversCount, manager);
     }
 
-    function getRequestsCount() public view returns uint {
+    function getRequestsCount() public view returns (uint256) {
         return requests.length;
     }
 }
