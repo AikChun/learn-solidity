@@ -91,7 +91,13 @@ contract Campaign {
             address
         )
     {
-        return (value, this.balance, requests.length, approversCount, manager);
+        return (
+            minContribution,
+            this.balance,
+            requests.length,
+            approversCount,
+            manager
+        );
     }
 
     function getRequestsCount() public view returns (uint256) {
