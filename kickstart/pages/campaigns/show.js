@@ -3,6 +3,7 @@ import { Card } from 'semantic-ui-react';
 import Layout from '../../components/Layout';
 import getCampaign from '../../ethereum/campaign';
 import web3 from '../../ethereum/web3';
+import ContributeForm from '../../components/ContributeForm';
 
 const Show = (props) => {
   const renderCards = () => {
@@ -15,26 +16,26 @@ const Show = (props) => {
     } = props;
     const items = [
       {
-        header: `${manager}`,
+        header: manager,
         meta: 'Address of Manager',
         description:
           'The manager created this campaign and can create requests.',
         style: { overflowWrap: 'break-word' },
       },
       {
-        header: `${minimumContribution}`,
+        header: minimumContribution,
         meta: 'Minimum Contribution (wei)',
         description:
           'You must contribute at least this much wei to be an approver',
       },
       {
-        header: `${requestsCount}`,
+        header: requestsCount,
         meta: 'Number of Requests',
         description:
           'A request tries to withdraw money from the contract. Requests must be approved by approvers.',
       },
       {
-        header: `${approversCount}`,
+        header: approversCount,
         meta: 'Number of approvers',
         description:
           'Number of people who have already donated to this campaign.',
@@ -53,6 +54,7 @@ const Show = (props) => {
     <Layout>
       <h3>Campaign Show</h3>
       {renderCards()}
+      <ContributeForm />
     </Layout>
   );
 };
@@ -73,8 +75,6 @@ Show.getInitialProps = async (props) => {
     approversCount: summary[3],
     manager: summary[4],
   };
-
-  console.log('summary:', summary);
 
   return summary;
 };
