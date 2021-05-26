@@ -1,11 +1,42 @@
 import React from 'react';
+import { Card } from 'semantic-ui-react';
 import Layout from '../../components/Layout';
 import getCampaign from '../../ethereum/campaign';
 
-const Show = () => {
+const Show = (props) => {
+  const renderCards = () => {
+    const items = [
+      {
+        header: `${props.manager}`,
+        meta: 'Address of Manager',
+        description:
+          'The manager created this campaign and can create requests.',
+        style: { overflowWrap: 'break-word' },
+      },
+      {
+        header: `${props.balance}`,
+        description: 'Balance',
+      },
+      {
+        header: `${props.minimumContribution}`,
+        description: 'Minimum Contribution',
+      },
+      {
+        header: `${props.numberOfRequests}`,
+        description: 'Requests',
+      },
+      {
+        header: `${props.approversCount}`,
+        description: 'Approvers',
+      },
+    ];
+
+    return <Card.Group items={items} />;
+  };
   return (
     <Layout>
       <h3>Campaign Show</h3>
+      {renderCards()}
     </Layout>
   );
 };
