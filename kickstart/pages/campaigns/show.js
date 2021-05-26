@@ -19,6 +19,14 @@ Show.getInitialProps = async (props) => {
 
   const summary = await instance.methods.getSummary().call();
 
+  return {
+    minimumContribution: summary[0],
+    balance: summary[1],
+    numberOfRequests: summary[2],
+    approversCount: summary[3],
+    manager: summary[4],
+  };
+
   console.log('summary:', summary);
 
   return summary;
