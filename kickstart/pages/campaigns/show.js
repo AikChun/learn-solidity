@@ -2,32 +2,48 @@ import React from 'react';
 import { Card } from 'semantic-ui-react';
 import Layout from '../../components/Layout';
 import getCampaign from '../../ethereum/campaign';
+import web3 from '../../ethereum/web3';
 
 const Show = (props) => {
   const renderCards = () => {
+    const {
+      manager,
+      minimumContribution,
+      requestsCount,
+      approversCount,
+      balance,
+    } = props;
     const items = [
       {
-        header: `${props.manager}`,
+        header: `${manager}`,
         meta: 'Address of Manager',
         description:
           'The manager created this campaign and can create requests.',
         style: { overflowWrap: 'break-word' },
       },
       {
-        header: `${props.balance}`,
-        description: 'Balance',
+        header: `${minimumContribution}`,
+        meta: 'Minimum Contribution (wei)',
+        description:
+          'You must contribute at least this much wei to be an approver',
       },
       {
-        header: `${props.minimumContribution}`,
-        description: 'Minimum Contribution',
+        header: `${requestsCount}`,
+        meta: 'Number of Requests',
+        description:
+          'A request tries to withdraw money from the contract. Requests must be approved by approvers.',
       },
       {
-        header: `${props.numberOfRequests}`,
-        description: 'Requests',
+        header: `${approversCount}`,
+        meta: 'Number of approvers',
+        description:
+          'Number of people who have already donated to this campaign.',
       },
       {
-        header: `${props.approversCount}`,
-        description: 'Approvers',
+        header: web3.utils.fromWei(balance, 'ether'),
+        meta: 'Campaign Balance (ether)',
+        description:
+          'The balance is how much money this campaign has left to spend.',
       },
     ];
 
@@ -53,7 +69,7 @@ Show.getInitialProps = async (props) => {
   return {
     minimumContribution: summary[0],
     balance: summary[1],
-    numberOfRequests: summary[2],
+    requestsCount: summary[2],
     approversCount: summary[3],
     manager: summary[4],
   };
