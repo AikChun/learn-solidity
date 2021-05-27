@@ -80,7 +80,6 @@ RequestNew.getInitialProps = (props) => {
   const {
     query: { address },
   } = props;
-  console.log('address', address);
 
   return { address };
 };
