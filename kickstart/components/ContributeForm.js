@@ -7,9 +7,14 @@ import { Router } from '../routes';
 
 const ContributeForm = (props) => {
   const [value, setValue] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
+    setLoading(true);
+
     const { address } = props;
 
     const campaign = Campaign(address);
@@ -20,11 +25,15 @@ const ContributeForm = (props) => {
         value: web3.utils.toWei(value, 'ether'),
       });
       Router.replaceRoute(`/campaigns/${address}`);
-    } catch (err) {}
+    } catch (err) {
+      setErrorMessage(`Something went wrong: ${err}`);
+    }
+
+    setLoading(false);
   };
 
   return (
-    <Form onSubmit={onSubmit}>
+    <Form onSubmit={onSubmit} error={!!errorMessage}>
       <Form.Field>
         <label>Amount to Contribute</label>
         <Input
@@ -34,7 +43,8 @@ const ContributeForm = (props) => {
           value={value}
         />
       </Form.Field>
-      <Button type="submit" primary>
+      <Message error header="Oops!" content={errorMessage} />
+      <Button type="submit" primary loading={loading}>
         Contribute!
       </Button>
     </Form>
