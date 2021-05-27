@@ -1,14 +1,26 @@
 import React from 'react';
 import Layout from '../../../components/Layout';
+import RequestRow from '../../../components/RequestRow';
 import { Button, Table } from 'semantic-ui-react';
 import { Link } from '../../../routes';
-import web3 from '../../../ethereum/web3';
 import Campaign from '../../../ethereum/campaign';
 
 const RequestIndex = (props) => {
-  const { address } = props;
+  const { address, requests, approversCount } = props;
 
   const { Header, Row, HeaderCell, Body } = Table;
+
+  const renderRequestRows = () => {
+    return requests.map((request, index) => (
+      <RequestRow
+        {...request}
+        address={address}
+        id={index}
+        approversCount={approversCount}
+        key={`${request.recipient}${index}`}
+      />
+    ));
+  };
   return (
     <Layout>
       <h3>View Requests</h3>
@@ -29,6 +41,7 @@ const RequestIndex = (props) => {
             <HeaderCell>Finalized</HeaderCell>
           </Row>
         </Header>
+        <Body>{renderRequestRows()}</Body>
       </Table>
     </Layout>
   );
@@ -50,7 +63,9 @@ RequestIndex.getInitialProps = async (props) => {
       })
   );
 
-  return { address, requests, requestsCount };
+  const approversCount = await campaign.methods.approversCount().call();
+
+  return { address, requests, requestsCount, approversCount };
 };
 
 export default RequestIndex;
