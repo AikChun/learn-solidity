@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Layout from '../../../components/Layout';
 import { Form, Input, Button, Message } from 'semantic-ui-react';
-import { Router } from '../../../routes';
+import { Link, Router } from '../../../routes';
 import Campaign from '../../../ethereum/campaign';
 import web3 from '../../../ethereum/web3';
 
@@ -38,6 +38,9 @@ const RequestNew = (props) => {
   };
   return (
     <Layout>
+      <Link route={`/campaigns/${address}/requests`}>
+        <a>Back</a>
+      </Link>
       <h3>Create a Request</h3>
       <Form error={!!errorMessage} onSubmit={onSubmit}>
         <Form.Field>
