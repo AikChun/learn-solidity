@@ -13,6 +13,7 @@ const ContributeForm = (props) => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
+    setErrorMessage('');
     setLoading(true);
 
     const { address } = props;
