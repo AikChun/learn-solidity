@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from 'semantic-ui-react';
+import { Card, Grid } from 'semantic-ui-react';
 import Layout from '../../components/Layout';
 import getCampaign from '../../ethereum/campaign';
 import web3 from '../../ethereum/web3';
@@ -53,8 +53,12 @@ const Show = (props) => {
   return (
     <Layout>
       <h3>Campaign Show</h3>
-      {renderCards()}
-      <ContributeForm />
+      <Grid>
+        <Grid.Column width={10}>{renderCards()}</Grid.Column>
+        <Grid.Column width={6}>
+          <ContributeForm address={props.address} />
+        </Grid.Column>
+      </Grid>
     </Layout>
   );
 };
@@ -74,6 +78,7 @@ Show.getInitialProps = async (props) => {
     requestsCount: summary[2],
     approversCount: summary[3],
     manager: summary[4],
+    address,
   };
 
   return summary;
