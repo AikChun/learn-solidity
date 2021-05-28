@@ -6,7 +6,7 @@ import { Link } from '../../../routes';
 import Campaign from '../../../ethereum/campaign';
 
 const RequestIndex = (props) => {
-  const { address, requests, approversCount } = props;
+  const { address, requests, requestsCount, approversCount } = props;
 
   const { Header, Row, HeaderCell, Body } = Table;
 
@@ -26,7 +26,9 @@ const RequestIndex = (props) => {
       <h3>View Requests</h3>
       <Link route={`/campaigns/${address}/requests/new`}>
         <a>
-          <Button primary>Add Request</Button>
+          <Button primary floated="right" style={{ marginBottom: 10 }}>
+            Add Request
+          </Button>
         </a>
       </Link>
       <Table>
@@ -43,6 +45,7 @@ const RequestIndex = (props) => {
         </Header>
         <Body>{renderRequestRows()}</Body>
       </Table>
+      <div>Found {requestsCount} requests</div>
     </Layout>
   );
 };

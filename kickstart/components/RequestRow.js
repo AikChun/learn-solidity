@@ -32,8 +32,10 @@ const RequestRow = (props) => {
       await campaign.methods.finalizeRequest(id).send({ from: accounts[0] });
     } catch (err) {}
   };
+
+  const readyToFinalize = () => approvalCount > approversCount / 2;
   return (
-    <Table.Row>
+    <Table.Row disabled={complete} positive={readyToFinalize && !complete}>
       <Table.Cell>{id}</Table.Cell>
       <Table.Cell>{description}</Table.Cell>
       <Table.Cell>{web3.utils.fromWei(value, 'ether')}</Table.Cell>
@@ -42,14 +44,18 @@ const RequestRow = (props) => {
         {approvalCount}/{approversCount}
       </Table.Cell>
       <Table.Cell>
-        <Button basic color="green" onClick={onApprove}>
-          Approve
-        </Button>
+        {!complete && (
+          <Button basic color="green" onClick={onApprove}>
+            Approve
+          </Button>
+        )}
       </Table.Cell>
       <Table.Cell>
-        <Button basic color="teal" onClick={onFinalize}>
-          Finalize
-        </Button>
+        {!complete && (
+          <Button basic color="teal" onClick={onFinalize}>
+            Finalize
+          </Button>
+        )}
       </Table.Cell>
     </Table.Row>
   );
